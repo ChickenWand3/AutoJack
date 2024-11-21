@@ -486,6 +486,7 @@ function getIdealMove(decision, dealerCard) {
         // Check if the specific player decision is in the decision chart
         if (decisionChart.hasOwnProperty(decision)) {
             const idealMove = decisionChart[decision];
+            console.log("It claims the card total is " + decision);
             return idealMove;
         } else {
             console.log("No decision found for this player hand:", decision);
@@ -520,7 +521,11 @@ function updateGameState(gameServicePacket) {
                     decision = checkPairs(hand, decision);
                 }
                 console.log(`Decision ${index}:`, decision);
-                const move = getIdealMove(decision, dealerUpCard);
+                move = getIdealMove(decision, dealerUpCard);
+                if (move == 'x2' && hand.length>2){
+                    move = 'HIT';
+                    console.log("I CHANGED IT TO HIT BITCH");
+                }
                 console.log(`Move ${index}:`, move)
                 moves[index] = move;
             }
